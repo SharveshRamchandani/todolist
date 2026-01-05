@@ -1,0 +1,334 @@
+:root {
+    --bg-color: #0f172a;
+    --text-color: #f8fafc;
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --accent-color: #ec4899;
+    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --item-bg: rgba(51, 65, 85, 0.5);
+    --placeholder-color: #94a3b8;
+    --danger-color: #ef4444;
+    --success-color: #10b981;
+    --font-family: 'Outfit', sans-serif;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* For background animations */
+    position: relative;
+}
+
+/* Background Animation */
+.background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.6;
+    animation: float 10s infinite alternate ease-in-out;
+}
+
+.orb-1 {
+    width: 300px;
+    height: 300px;
+    background: var(--primary-color);
+    top: 10%;
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.orb-2 {
+    width: 400px;
+    height: 400px;
+    background: var(--accent-color);
+    bottom: 10%;
+    right: 20%;
+    animation-delay: -5s;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(30px, 50px); }
+}
+
+/* Main Container */
+.app-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-height: 85vh; /* Keep it within viewport vertically */
+}
+
+/* Header */
+.app-header {
+    text-align: center;
+}
+
+.app-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.25rem;
+}
+
+.app-header p {
+    color: var(--placeholder-color);
+    font-size: 0.9rem;
+}
+
+/* Input Group */
+.input-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+input[type="text"] {
+    flex: 1;
+    background: var(--item-bg);
+    border: 1px solid var(--glass-border);
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    color: var(--text-color);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition-speed);
+}
+
+input[type="text"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+input[type="text"]::placeholder {
+    color: var(--placeholder-color);
+}
+
+#add-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px; /* Make it square/circle-ish container match input height */
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: var(--transition-speed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#add-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+#add-btn:active {
+    transform: translateY(0);
+}
+
+/* To-Do List */
+.todo-list {
+    list-style: none;
+    overflow-y: auto;
+    padding-right: 0.5rem; /* Space for scrollbar */
+    max-height: 100%; /* Will take remaining space */
+}
+
+/* Scrollbar styling */
+.todo-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.todo-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.todo-list::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 3px;
+}
+
+.todo-list::-webkit-scrollbar-thumb:hover {
+    background: var(--placeholder-color);
+}
+
+.todo-item {
+    background: var(--item-bg);
+    margin-bottom: 0.75rem;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    animation: slideIn 0.3s ease forwards;
+}
+
+.todo-item:hover {
+    border-color: var(--glass-border);
+    transform: translateX(4px);
+}
+
+.todo-item.completed {
+    opacity: 0.7;
+    background: rgba(51, 65, 85, 0.3);
+}
+
+.todo-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    cursor: pointer;
+}
+
+.todo-text {
+    font-size: 1rem;
+    word-break: break-all;
+    transition: var(--transition-speed);
+}
+
+.todo-item.completed .todo-text {
+    text-decoration: line-through;
+    color: var(--placeholder-color);
+}
+
+/* Custom Checkbox */
+.custom-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-speed);
+    flex-shrink: 0;
+}
+
+.todo-item.completed .custom-checkbox {
+    background: var(--primary-color);
+}
+
+.custom-checkbox i {
+    color: white;
+    font-size: 0.7rem;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: var(--transition-speed);
+}
+
+.todo-item.completed .custom-checkbox i {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Delete Button */
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: var(--placeholder-color);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: var(--transition-speed);
+    margin-left: 0.5rem;
+}
+
+.delete-btn:hover {
+    color: var(--danger-color);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    color: var(--placeholder-color);
+    padding: 2rem 0;
+    display: none; /* Hidden by default if items exist, managed by JS */
+}
+
+.empty-state.visible {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    to {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .app-container {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    .orb {
+        opacity: 0.4; /* Reduce distraction on smaller screens */
+    }
+}

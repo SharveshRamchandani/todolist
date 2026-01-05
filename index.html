@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A premium, simple, and effective To-Do List application.">
+    <title>TaskMaster | Premium To-Do List</title>
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="background-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <main class="app-container">
+        <header class="app-header">
+            <h1>TaskMaster</h1>
+            <p>Focus on what matters.</p>
+        </header>
+
+        <div class="input-group">
+            <input type="text" id="todo-input" placeholder="Add a new task..." aria-label="New task description">
+            <button id="add-btn" aria-label="Add task">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+
+        <ul id="todo-list" class="todo-list">
+            <!-- Tasks will be injected here via JavaScript -->
+        </ul>
+        
+        <div class="empty-state" id="empty-state">
+            <i class="fas fa-clipboard-check"></i>
+            <p>No tasks yet. Start by adding one!</p>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
