@@ -4,15 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const todoList = document.getElementById('todo-list');
     const emptyState = document.getElementById('empty-state');
 
-    // Load tasks from localStorage
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-    // Initialize list
     renderTasks();
 
-    // Event Listeners
+
     addBtn.addEventListener('click', addTask);
-    
+
     todoInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             addTask();
@@ -23,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const taskText = todoInput.value.trim();
 
         if (taskText === '') {
-            // Shake animation for empty input could be added here
+
             todoInput.placeholder = "Please enter a task!";
             setTimeout(() => todoInput.placeholder = "Add a new task...", 2000);
             return;
@@ -37,14 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tasks.push(newTask);
         saveTasks();
-        
-        // Optimistic UI update - Add single element instead of re-rendering all for better animation
-        createTaskElement(newTask, true); 
-        
+
+
+        createTaskElement(newTask, true);
+
         todoInput.value = '';
         updateEmptyState();
-        
-        // Scroll to bottom
+
+
         setTimeout(() => {
             todoList.scrollTop = todoList.scrollHeight;
         }, 10);
@@ -52,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderTasks() {
         todoList.innerHTML = '';
-        
+
         tasks.forEach(task => {
             createTaskElement(task, false);
         });
@@ -64,10 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const li = document.createElement('li');
         li.className = `todo-item ${task.completed ? 'completed' : ''}`;
         li.dataset.id = task.id;
-        
-        // If it's not new (initial render), we might want to skip the animation class or handle it differently
-        // but defined CSS animation works fine for both usually. 
-        // We can force a specific animation class if needed for dynamic adds.
+
+
 
         li.innerHTML = `
             <div class="todo-content" onclick="toggleTask(${task.id})">
@@ -84,15 +80,14 @@ document.addEventListener('DOMContentLoaded', () => {
         todoList.appendChild(li);
     }
 
-    // Expose functionality to window due to inline onclick handlers
-    // Alternatively, could use event delegation on the UL
-    window.toggleTask = function(id) {
+
+    window.toggleTask = function (id) {
         const index = tasks.findIndex(t => t.id === id);
         if (index !== -1) {
             tasks[index].completed = !tasks[index].completed;
             saveTasks();
-            
-            // Update DOM directly for performance/animation
+
+
             const li = document.querySelector(`li[data-id="${id}"]`);
             if (li) {
                 li.classList.toggle('completed');
@@ -100,23 +95,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    window.deleteTask = function(id, event) {
-        // Prevent toggling when clicking delete
-        if(event) event.stopPropagation();
+    window.deleteTask = function (id, event) {
+
+        if (event) event.stopPropagation();
 
         const index = tasks.findIndex(t => t.id === id);
         if (index !== -1) {
-            // Animate removal
+
             const li = document.querySelector(`li[data-id="${id}"]`);
             if (li) {
                 li.style.animation = 'slideOut 0.3s ease forwards';
                 li.addEventListener('animationend', () => {
                     tasks.splice(index, 1);
                     saveTasks();
-                    renderTasks(); // Re-render to ensure clean state
+                    renderTasks();
                 });
             } else {
-                // Fallback if DOM element missing for some reason
+
                 tasks.splice(index, 1);
                 saveTasks();
                 renderTasks();

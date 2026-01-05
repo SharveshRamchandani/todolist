@@ -28,11 +28,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* For background animations */
+    overflow: hidden;
     position: relative;
 }
 
-/* Background Animation */
 .background-animation {
     position: absolute;
     top: 0;
@@ -70,11 +69,15 @@ body {
 }
 
 @keyframes float {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(30px, 50px); }
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(30px, 50px);
+    }
 }
 
-/* Main Container */
 .app-container {
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
@@ -88,10 +91,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    max-height: 85vh; /* Keep it within viewport vertically */
+    max-height: 85vh;
 }
 
-/* Header */
 .app-header {
     text-align: center;
 }
@@ -110,7 +112,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* Input Group */
 .input-group {
     display: flex;
     gap: 0.5rem;
@@ -143,7 +144,7 @@ input[type="text"]::placeholder {
     color: white;
     border: none;
     width: 50px;
-    height: 50px; /* Make it square/circle-ish container match input height */
+    height: 50px;
     border-radius: 12px;
     cursor: pointer;
     font-size: 1.2rem;
@@ -162,15 +163,13 @@ input[type="text"]::placeholder {
     transform: translateY(0);
 }
 
-/* To-Do List */
 .todo-list {
     list-style: none;
     overflow-y: auto;
-    padding-right: 0.5rem; /* Space for scrollbar */
-    max-height: 100%; /* Will take remaining space */
+    padding-right: 0.5rem;
+    max-height: 100%;
 }
 
-/* Scrollbar styling */
 .todo-list::-webkit-scrollbar {
     width: 6px;
 }
@@ -230,7 +229,6 @@ input[type="text"]::placeholder {
     color: var(--placeholder-color);
 }
 
-/* Custom Checkbox */
 .custom-checkbox {
     width: 20px;
     height: 20px;
@@ -260,7 +258,6 @@ input[type="text"]::placeholder {
     transform: scale(1);
 }
 
-/* Delete Button */
 .delete-btn {
     background: transparent;
     border: none;
@@ -278,12 +275,11 @@ input[type="text"]::placeholder {
     background: rgba(239, 68, 68, 0.1);
 }
 
-/* Empty State */
 .empty-state {
     text-align: center;
     color: var(--placeholder-color);
     padding: 2rem 0;
-    display: none; /* Hidden by default if items exist, managed by JS */
+    display: none;
 }
 
 .empty-state.visible {
@@ -297,12 +293,12 @@ input[type="text"]::placeholder {
     opacity: 0.5;
 }
 
-/* Animations */
 @keyframes slideIn {
     from {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -317,11 +313,15 @@ input[type="text"]::placeholder {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
-/* Responsive */
 @media (max-width: 480px) {
     .app-container {
         width: 95%;
@@ -329,6 +329,6 @@ input[type="text"]::placeholder {
     }
 
     .orb {
-        opacity: 0.4; /* Reduce distraction on smaller screens */
+        opacity: 0.4;
     }
 }
