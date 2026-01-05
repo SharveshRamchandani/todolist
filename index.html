@@ -4,49 +4,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A premium, simple, and effective To-Do List application.">
+    <meta name="description" content="A premium, simple, and effective Productivity System.">
     <title>TaskMaster</title>
-
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="background-animation">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-layer-group"></i>
+                    <span>TaskMaster</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <span class="nav-label">Workspace</span>
+                    <a href="#" class="nav-item active" data-view="dashboard">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-item" data-view="calendar">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>Calendar</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <span class="nav-label">Tasks</span>
+                    <a href="#" class="nav-item" data-view="today">
+                        <i class="far fa-calendar-check"></i>
+                        <span>Today</span>
+                    </a>
+                    <a href="#" class="nav-item" data-view="upcoming">
+                        <i class="fas fa-calendar-week"></i>
+                        <span>Upcoming</span>
+                    </a>
+                    <a href="#" class="nav-item" data-view="projects">
+                        <i class="fas fa-folder-open"></i>
+                        <span>Projects</span>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="settings-btn" aria-label="Settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span id="page-title">Dashboard</span>
+                </div>
+                <div class="top-actions">
+                    <button class="icon-btn theme-toggle" aria-label="Toggle Theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="btn-primary" id="new-task-btn">
+                        <i class="fas fa-plus"></i> New Task
+                    </button>
+                </div>
+            </header>
+
+            <div id="view-container" class="view-container">
+                <div class="empty-placeholder">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading Workspace...</p>
+                </div>
+            </div>
+        </main>
     </div>
 
-    <main class="app-container">
-        <header class="app-header">
-            <h1>TaskMaster</h1>
-            <p>Focus on what matters.</p>
-        </header>
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">New Task</h2>
+                <button class="close-btn" aria-label="Close Modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="task-form">
+                    <div class="form-group full-width">
+                        <input type="text" id="task-title" placeholder="What needs to be done?" required autofocus>
+                    </div>
 
-        <div class="input-group">
-            <input type="text" id="todo-input" placeholder="Add a new task..." aria-label="New task description">
-            <button id="add-btn" aria-label="Add task">
-                <i class="fas fa-plus"></i>
-            </button>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="task-status">
+                                <option value="todo">To Do</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <select id="task-priority">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                                <option value="urgent">Urgent</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="task-category">
+                                <option value="personal">Personal</option>
+                                <option value="study">Study</option>
+                                <option value="coding">Coding</option>
+                                <option value="internship">Internship</option>
+                                <option value="hackathon">Hackathon</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Duration (mins)</label>
+                            <input type="number" id="task-duration" value="30" min="5" step="5">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" id="task-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Time</label>
+                            <input type="time" id="task-time">
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <textarea id="task-desc" placeholder="Add details..." rows="3"></textarea>
+                    </div>
+
+                    <div class="form-footer">
+                        <button type="button" class="btn-text close-modal-btn">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Task</button>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <ul id="todo-list" class="todo-list">
-
-        </ul>
-
-        <div class="empty-state" id="empty-state">
-            <i class="fas fa-clipboard-check"></i>
-            <p>No tasks yet. Start by adding one!</p>
-        </div>
-    </main>
+    </div>
 
     <script src="script.js"></script>
 </body>
