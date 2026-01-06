@@ -3,18 +3,18 @@ export class Task {
         id = crypto.randomUUID(),
         title = '',
         description = '',
-        status = 'todo', // todo, in-progress, completed
-        priority = 'medium', // low, medium, high, urgent
-        category = 'personal', // study, coding, internship, hackathon, personal, custom
-        startDate = null, // ISO Date string (YYYY-MM-DD)
-        startTime = null, // HH:mm format
+        status = 'todo',
+        priority = 'medium',
+        category = 'personal',
+        startDate = null,
+        startTime = null,
         endDate = null,
         endTime = null,
-        estimatedDuration = 0, // in minutes
+        estimatedDuration = 0,
         isRecurring = false,
-        recurrenceRule = null, // { frequency: 'daily', interval: 1, ... }
+        recurrenceRule = null,
         progressPercentage = 0,
-        energyLevel = 'medium', // low, medium, high
+        energyLevel = 'medium',
         createdAt = new Date().toISOString(),
         updatedAt = new Date().toISOString()
     } = {}) {
@@ -53,7 +53,7 @@ export class Task {
         this.updatedAt = new Date().toISOString();
     }
 
-    // Helper to get a full Date object if start date/time are present
+
     getStartDateTime() {
         if (!this.startDate) return null;
         const dateStr = this.startTime ? `${this.startDate}T${this.startTime}` : `${this.startDate}T00:00:00`;
