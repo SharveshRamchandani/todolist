@@ -4,7 +4,6 @@ export class DateUtils {
     }
 
     static formatDate(date) {
-        // Returns YYYY-MM-DD
         const d = new Date(date);
         let month = '' + (d.getMonth() + 1);
         let day = '' + d.getDate();
@@ -19,7 +18,7 @@ export class DateUtils {
     static getStartOfWeek(date) {
         const d = new Date(date);
         const day = d.getDay();
-        const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Adjust when day is sunday
+        const diff = d.getDate() - day + (day === 0 ? -6 : 1);
         return new Date(d.setDate(diff));
     }
 
@@ -27,18 +26,16 @@ export class DateUtils {
         const firstDay = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0);
         const days = [];
-        
-        // Pad start
-        const startPadding = firstDay.getDay(); // 0 is Sunday
+
+        const startPadding = firstDay.getDay();
         for (let i = 0; i < startPadding; i++) {
             days.push(null);
         }
-        
-        // Days
+
         for (let i = 1; i <= lastDay.getDate(); i++) {
             days.push(new Date(year, month, i));
         }
-        
+
         return days;
     }
 }

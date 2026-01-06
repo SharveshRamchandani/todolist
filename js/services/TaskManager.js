@@ -10,16 +10,13 @@ export class TaskManager {
     loadTasks() {
         const storedData = this.storageService.getData();
         if (storedData && Array.isArray(storedData)) {
-            // Assume data is already in new format if accessed via this manager, 
-            // but we can add checks or mapping if needed.
             this.tasks = storedData.map(t => new Task(t));
         } else {
-            // Check for old legacy data
             const oldData = JSON.parse(localStorage.getItem('tasks'));
             if (oldData) {
                 const migrated = this.storageService.migrateFromOldFormat(oldData);
                 this.tasks = migrated.map(t => new Task(t));
-                this.saveTasks(); // Save immediately in new format
+                this.saveTasks();
             }
         }
     }
@@ -64,14 +61,10 @@ export class TaskManager {
     }
 
     getTasksByDate(dateStr) {
-        // dateStr format: YYYY-MM-DD
         return this.tasks.filter(t => t.startDate === dateStr);
     }
 
     getTasksForWeek(startOfWeekDate) {
-        // Should return tasks within the week range
-        // Requires DateUtils helper to compare ranges properly
-        // Placeholder for now
         return this.tasks;
     }
 

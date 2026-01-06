@@ -23,7 +23,6 @@ export class StorageService {
         }
     }
 
-    // Handle migration from the old simple array format to the new object format
     migrateFromOldFormat(oldTasks) {
         if (!Array.isArray(oldTasks)) return [];
 
@@ -39,7 +38,7 @@ export class StorageService {
                 startTime: null,
                 endDate: null,
                 endTime: null,
-                estimatedDuration: 30, // minutes
+                estimatedDuration: 30,
                 isRecurring: false,
                 recurrenceRule: null,
                 progressPercentage: t.completed ? 100 : 0,
